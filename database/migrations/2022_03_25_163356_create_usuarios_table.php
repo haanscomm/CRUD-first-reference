@@ -13,24 +13,26 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rolpermissions', function (Blueprint $table) {
+        Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('rol_id')
+            $table->string('name', 25);
+            $table->string('surname', 25);
+            $table->string('password');
+            $table->string('profile_image', 255);
+            $table->foreignId('company_id')
             ->nullable()
-            ->constrained('roles')
+            ->constrained('empresas')
             ->cascadeOnUpdate()
             ->nullOnDelete();
-            $table->foreignId('permission_id')
+            $table->foreignId('role_id')
             ->nullable()
-            ->constrained('permissions')
+            ->constrained('rolpermissions')
             ->cascadeOnUpdate()
             ->nullOnDelete();
-
+            $table->boolean('active');
 
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -38,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rolpermissions');
+        Schema::dropIfExists('usuarios');
     }
 };

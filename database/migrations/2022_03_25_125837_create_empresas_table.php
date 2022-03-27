@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('cod');
-            $table->string('name');
+            $table->string('name', 30);
             $table->string('cif', 9);
             $table->boolean('active');
             $table->string('logo');

@@ -10,6 +10,7 @@ class Empresa extends Model
     use HasFactory;
 
     public function usuarios(){
-        return $this->hasMany(Empresa::class,'id');
+
+        return $this->hasMany(Empresa::class, 'id');
     }
 }

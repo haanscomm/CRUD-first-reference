@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,5 +13,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/','App\Http\Controllers\EmpresaController@index');
+
+//Route::get('/create','App\Http\Controllers\EmpresaController@create');
+
+
+Route::resource('empresa', EmpresaController::class);
