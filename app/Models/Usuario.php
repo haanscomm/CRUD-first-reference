@@ -12,7 +12,7 @@ class Usuario extends Model
     public function empresas(){
         return $this->belongsTo(Empresa::class,'company_id');
     }
-
+    public $timestamps = false;
     public function rolpermissions(){
         return $this->belongsTo(Rolpermission::class,'role_id');
     }

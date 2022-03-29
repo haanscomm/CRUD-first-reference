@@ -41,7 +41,7 @@
     <div class="container">
         <div class="abs-center">
 
-            <form action="{{ url('/empresa')}}" method="post" enctype="multipart/form-data" class="boder p-3 form">
+            <form action="{{ url('/usuario')}}" method="post" enctype="multipart/form-data" class="boder p-3 form">
                 @csrf
                 <h1> Creación de Usuario </h1>
                 <br>

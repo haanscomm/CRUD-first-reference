@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Empresa;
@@ -10,7 +10,7 @@ use App\Models\Role;
 use App\Models\Rolpermission;
 
 
-class EmpresaController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +26,7 @@ class EmpresaController extends Controller
         return view('welcome', compact('usuarios','empresas','roles'));
     }
 
-//
+
 
 
 
@@ -37,7 +37,10 @@ class EmpresaController extends Controller
      */
     public function create()
     {
-        //
+        $company_id = Empresa::all();
+        $role1= Role::all();
+        return view('empresa.create', compact('company_id', 'role1'));
+        
     }
 
     /**
@@ -49,8 +52,13 @@ class EmpresaController extends Controller
     public function store(Request $request)
     {
         //
-
-
+        //$datosusuarios = request()-> all();
+       $datosusuarios = request()-> except('_token');
+       Usuario::insert($datosusuarios);
+       $usuarios = Usuario::all();
+       $roles = Rolpermission::all();
+       $empresas=Empresa::all();
+       return view('welcome', compact('usuarios','empresas','roles'));
     }
 
     /**
@@ -72,7 +80,10 @@ class EmpresaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $usuario = Usuario::findOrFail($id);
+        $roles = Rolpermission::all();
+        $empresas=Empresa::all();
+        return view('empresa.update', compact('usuario'));
     }
 
     /**
@@ -82,9 +93,14 @@ class EmpresaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $id)
+    public function update(Request $request,$id)
     {
-        //
+        $datosusuarios = request()-> except('_token','_method','timestamp');
+        Usuario::where('id','=',$id)->update($datosusuarios);
+         $usuario = Usuario::findOrFail($id);
+        $roles = Rolpermission::all();
+        $empresas=Empresa::all();
+        return view('empresa.update', compact('usuario'));
     }
 
     /**
@@ -95,7 +111,7 @@ class EmpresaController extends Controller
      */
     public function destroy($id)
     {
-        Empresa::where([
+        Usuario::where([
             'id' => $id
         ])->delete();
         return back();
